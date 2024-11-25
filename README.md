@@ -15,30 +15,21 @@ Maven para compilar y empaquetar la aplicación Spring Boot.
 Pasos de ejecución
 1. Clonar el repositorio a tu máquina local:
 Ejecutar en una terminal:
-git clone https://github.com/cbld23/product-catalog.git
+git clone https://github.com/cbld23/GastroGest.git
 cd product-catalog
 
-2. Levantar la base de datos PostgreSQL usando Docker:
+2. Levantar la base de datos PostgreSQL y la aplicicación Spring Boot usando Docker:
 Ejecutar en una terminal:
 docker-compose up -d
-Esto descargará la imagen de PostgreSQL (si no la tienes) y levantará el contenedor en segundo plano.
+Esto descargará el software necesario para desplegar una base de datos PostgreSQL en un contenedor y una aplicación Java Spring Boot en otro.
 
-3. Compilar y ejecutar la aplicación Spring Boot
-Ejecutar en una terminal:
-mvn clean install
-Ejecuta la aplicación con el siguiente comando:
-mvn spring-boot:run
-Esto iniciará la aplicación en la JVM, por defecto en el puerto 8080.
-
-4. Una vez que la aplicación esté corriendo, los endpoints de la API estan accesibles en:
+4. Una vez los contenedores estén levantados, los endpoints de la API están accesibles en:
 http://localhost:8080/api
 
 5. Es posible acceder a la API documentada con Swagger directamente desde el navegador y realizar llamadas en:
 http://localhost:8080/swagger-ui.html
 
 6. Detener los servicios
-Detener el contenedor de Docker:
+Detener los contenedores de Docker:
 Ejecutar el siguiente comando:
 docker-compose down
-Detener la aplicación Spring Boot:
-En el terminal donde se está ejecutando la aplicación, presiona Ctrl+C.

@@ -16,6 +16,22 @@ services:
     networks:
       - app-network
 
+  app:
+    build:
+      context: .                                          # Carpeta donde está tu Dockerfile
+      dockerfile: Dockerfile                              # Nombre del Dockerfile (opcional si es "Dockerfile")
+    container_name: springboot-app
+    ports:
+      - "8080:8080"                                       # Expone el puerto 8080 para la app
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres-container:5432/product_catalog
+      SPRING_DATASOURCE_USERNAME: user
+      SPRING_DATASOURCE_PASSWORD: password
+    depends_on:
+      - postgres                                          # Asegura que PostgreSQL se inicie antes
+    networks:
+      - app-network
+
 networks:
   app-network:
     driver: bridge

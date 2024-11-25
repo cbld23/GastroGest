@@ -15,6 +15,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/categorias")
+@CrossOrigin(origins = "http://localhost:4200")
 public class CategoriaController {
 
     @Autowired
@@ -58,6 +59,39 @@ public class CategoriaController {
         Categoria categoria = categoriaService.getCategoriaById(id);
         return categoria != null ?
                 new ResponseEntity<>(categoria, HttpStatus.OK) :
+                new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
+    @PutMapping("/{id}")
+    @Operation(summary = "Update an existing category", description = "Modify the details of an existing category by ID")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Category updated successfully"),
+            @ApiResponse(responseCode = "404", description = "Category not found"),
+            @ApiResponse(responseCode = "400", description = "Invalid input data")
+    })
+    public ResponseEntity<Categoria> updateCategoria(
+            @Parameter(description = "ID of the category to be updated", required = true, example = "1")
+            @PathVariable Long id,
+            @Parameter(description = "Updated category object", required = true)
+            @RequestBody Categoria categoria) {
+        Categoria updatedCategoria = categoriaService.updateCategoria(id, categoria);
+        return updatedCategoria != null ?
+                new ResponseEntity<>(updatedCategoria, HttpStatus.OK) :
+                new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
+    @DeleteMapping("/{id}")
+    @Operation(summary = "Delete a category by ID", description = "Remove a category from the catalog using its ID")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "204", description = "Category deleted successfully"),
+            @ApiResponse(responseCode = "404", description = "Category not found")
+    })
+    public ResponseEntity<Void> deleteCategoria(
+            @Parameter(description = "ID of the category to be deleted", required = true, example = "1")
+            @PathVariable Long id) {
+        boolean isDeleted = categoriaService.deleteCategoria(id);
+        return isDeleted ?
+                new ResponseEntity<>(HttpStatus.NO_CONTENT) :
                 new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 }
