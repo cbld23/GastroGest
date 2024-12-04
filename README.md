@@ -16,7 +16,7 @@ Pasos de ejecución
 1. Clonar el repositorio a tu máquina local:
 Ejecutar en una terminal:
 git clone https://github.com/cbld23/GastroGest.git
-cd product-catalog
+cd GastroGest
 
 2. Levantar la base de datos PostgreSQL y la aplicicación Spring Boot usando Docker:
 Ejecutar en una terminal:
