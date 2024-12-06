@@ -10,7 +10,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest  # Usamos el runner de Ubuntu para ejecutar el flujo de trabajo
+    runs-on: ubuntu-22.04 
 
     steps:
       # 1. Hacer checkout del código del repositorio
@@ -22,6 +22,7 @@ jobs:
         uses: actions/setup-java@v3
         with:
           java-version: '21'  
+          distribution: 'temurin'  
 
       # 3. Instalamos las dependencias y compilamos el proyecto con Maven
       - name: Build with Maven
@@ -31,9 +32,11 @@ jobs:
       - name: Run tests
         run: mvn test 
 
-      # 5. Construcción de la imagen Docker utilizando el Dockerfile de múltiples etapas
+      # 6. Construcción de la imagen Docker utilizando el Dockerfile de múltiples etapas
       - name: Build Docker image
         run: |
-          docker build -t my-spring-boot-app .  
+          docker build -t my-dockerhub-username/my-spring-boot-app:${{ github.sha }} .
+        
+
         
      
